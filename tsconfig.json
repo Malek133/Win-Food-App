@@ -1,4 +1,5 @@
 {
+  "types": ["react", "react-dom"],
   "compilerOptions": {
     "target": "ES2017",
     "lib": ["dom", "dom.iterable", "esnext"],

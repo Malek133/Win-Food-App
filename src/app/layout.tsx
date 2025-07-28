@@ -4,6 +4,8 @@ import "@/styles/globals.css";
 import { siteConfig } from "@/config/site.config";
 import { cn } from "@/lib/utils";
 import RootProviders from "@/components/providers";
+import { Toaster } from "@/components/ui/sonner"
+// import "@uploadthing/react/styles.css";
 
 const fontSans = Manrope({
   variable: "--font-sans",
@@ -77,7 +79,8 @@ export default function RootLayout({
         )}
       >
         <RootProviders>
-          {children}
+          <main>{children}</main>
+          <Toaster />
         </RootProviders>
       </body>
     </html>

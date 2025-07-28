@@ -1,8 +1,10 @@
+import SideBar from "@/components/SideBar";
 import ThemeToggler from "@/components/theme/toggler";
 import { Button } from "@/components/ui/button";
 import { UserProfile } from "@/components/user-profile";
 import { siteConfig } from "@/config/site.config";
-import { ArrowUpRight, BarChart2, CreditCard, Layout, Settings, Users } from "lucide-react";
+import { ArrowUpRight, BarChart2, CreditCard,
+   Layout, Settings, Users } from "lucide-react";
 import Link from "next/link";
 
 export default function DashboardLayout({
@@ -14,7 +16,7 @@ export default function DashboardLayout({
     <div className="w-full h-screen overflow-hidden flex flex-col">
       <MockNavbar />
       <div className="flex h-full">
-        <MockSidebar />
+        <SideBar />
         <div id="main" className="flex-1 overflow-y-auto">
           {children}
         </div>
@@ -59,41 +61,3 @@ const MockNavbar = () => {
   )
 }
 
-const MockSidebar = () => {
-  return (
-    <div id="sidebar" className="w-[300px] border-r border-dashed hidden md:block">
-      <div className="flex flex-col divide-y border-b border-dashed">
-        <Button variant="ghost" className="border-dashed h-14 text-left justify-start pl-8" asChild>
-          <Link href="/dashboard">
-            <Layout />
-            <span>Dashboard</span>
-          </Link>
-        </Button>
-        <Button variant="ghost" className="border-dashed h-14 text-left justify-start pl-8 opacity-50 cursor-not-allowed" disabled asChild>
-          <Link href="/settings">
-            <Settings />
-            <span>Settings</span>
-          </Link>
-        </Button>
-        <Button variant="ghost" className="border-dashed h-14 text-left justify-start pl-8 opacity-50 cursor-not-allowed" disabled asChild>
-          <Link href="/analytics">
-            <BarChart2 />
-            <span>Analytics</span>
-          </Link>
-        </Button>
-        <Button variant="ghost" className="border-dashed h-14 text-left justify-start pl-8 opacity-50 cursor-not-allowed" disabled asChild>
-          <Link href="/users">
-            <Users />
-            <span>Users</span>
-          </Link>
-        </Button>
-        <Button variant="ghost" className="border-dashed h-14 text-left justify-start pl-8 opacity-50 cursor-not-allowed" disabled asChild>
-          <Link href="/billing">
-            <CreditCard />
-            <span>Billing</span>
-          </Link>
-        </Button>
-      </div>
-    </div>
-  )
-}

@@ -1,10 +1,11 @@
 import { migrate } from "drizzle-orm/neon-http/migrator";
 import { db } from ".";
 
+
 const main = async () => {
   const startTime = Date.now();
   console.log(`[${new Date().toISOString()}] Starting database migration...`);
-  
+
   try {
     await migrate(db, { migrationsFolder: "drizzle/migrations" });
     
@@ -30,3 +31,10 @@ const main = async () => {
 };
 
 main();
+
+
+
+ 
+
+
+
