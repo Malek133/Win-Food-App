@@ -8,7 +8,10 @@ import { useState } from "react";
 
 const formSchema = z.object({
   title: z.string().min(2).max(50),
+  urlmaps:z.string().min(5).max(500),
    imageUrl: z.string().url({ message: "URL invalide" }),
+   videoUrl: z.string().url({ message: "URL vidéo invalide" }),
+   dispo:z.boolean()
 
 });
 
@@ -28,6 +31,9 @@ import { useRouter } from "next/navigation";
 import { Galleries } from "@/lib/db/schema";
 import { createImage, updateGallerie } from "@/lib/actions/galleries-action";
   import ImageUploader from "./ImageUploader";
+import { Label } from "./ui/label";
+import { Checkbox } from "./ui/checkbox";
+import VideoUploader from "./VideoUploader";
 
 
 interface GallerieFormProps {
@@ -41,7 +47,10 @@ export default function GallerieForm({ gallerie }: GallerieFormProps) {
     resolver: zodResolver(formSchema),
     defaultValues: {
       title: gallerie?.title || "",
+      urlmaps: gallerie?.urlmaps || "",
       imageUrl: gallerie?.imageUrl || "",
+      videoUrl: gallerie?.videoUrl || "", // ajouté ici
+      dispo:gallerie?.dispo || false
     },
   });
 
@@ -57,7 +66,8 @@ export default function GallerieForm({ gallerie }: GallerieFormProps) {
          await updateGallerie(gallerie.id!, userData);
       
       } else {
-        await createImage(userData);
+        
+         await createImage(userData);
       }
 
       form.reset();
@@ -83,6 +93,21 @@ export default function GallerieForm({ gallerie }: GallerieFormProps) {
             <FormItem>
               <FormLabel>Username</FormLabel>
               <FormControl>
+                <Input placeholder="Bruce Wayne" {...field}
+                 />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+
+<FormField
+          control={form.control}
+          name="urlmaps"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>geo-localisation</FormLabel>
+              <FormControl>
                 <Input placeholder="Bruce Wayne" {...field} />
               </FormControl>
               <FormMessage />
@@ -90,19 +115,21 @@ export default function GallerieForm({ gallerie }: GallerieFormProps) {
           )}
         />
 
-        {/* <FormField
+<FormField
           control={form.control}
-          name="imageUrl"
+          name="dispo"
           render={({ field }) => (
             <FormItem>
-              <FormLabel>Url</FormLabel>
+              <FormLabel>order</FormLabel>
               <FormControl>
-                <Input placeholder="https/" {...field} />
+              <Checkbox checked={field.value} onCheckedChange={field.onChange} name={field.name} ref={field.ref} />
+              {/* <Checkbox id="terms" {...field} /> */}
+              {/* <Label htmlFor="terms">Accept terms and conditions</Label> */}
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
-        />   */}
+        />
 
         <FormField
           control={form.control}
@@ -121,7 +148,50 @@ export default function GallerieForm({ gallerie }: GallerieFormProps) {
           )}
         /> 
 
+
+
          {/* <ImageUploader /> */}
+         <FormField
+  control={form.control}
+  name="videoUrl"
+  render={({ field }) => (
+    <FormItem>
+      <FormLabel>Vidéo</FormLabel>
+      <FormControl>
+        <VideoUploader
+          value={field.value} // valeur actuelle du champ vidéo
+          onChange={(url) => field.onChange(url)} // quand une vidéo est uploadée
+        />
+      </FormControl>
+      <FormMessage />
+    </FormItem>
+  )}
+/>
+
+{/* 
+         <FormField
+  control={form.control}
+  name="videoUrl"
+  render={({ field }) => (
+    <FormItem>
+      <FormLabel>Vidéo</FormLabel>
+      <FormControl>
+        <input
+          type="file"
+          accept="video/*"
+          onChange={(e) => {
+            if (e.target.files?.[0]) {
+              // ici tu peux uploader sur Cloudinary et récupérer l’URL
+              field.onChange(e.target.files[0]);
+            }
+          }}
+        />
+      </FormControl>
+      <FormMessage />
+    </FormItem>
+  )}
+/> */}
+
 
 
         <Button disabled={isLoading} type="submit">

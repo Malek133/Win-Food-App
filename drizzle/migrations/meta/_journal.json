@@ -15,6 +15,13 @@
       "when": 1753699031347,
       "tag": "0001_yummy_zombie",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1754929638550,
+      "tag": "0002_clammy_domino",
+      "breakpoints": true
     }
   ]
 }

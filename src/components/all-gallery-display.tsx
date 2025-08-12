@@ -1,9 +1,10 @@
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 import { Button } from "@/components/ui/button"
-import { Pencil, Eye, Trash2 } from "lucide-react"
- import GallerieForm from "./galleries-form"
+import {  Eye } from "lucide-react"
  import Image from "next/image"
 import { getAllImages } from "@/lib/actions/galleries-action"
+import UrlMaps from "./url-maps"
+import { Badge } from "./ui/badge"
 
 export default async function AllGalleriesDisplay() {
   const galleries = await getAllImages()
@@ -77,22 +78,48 @@ export default async function AllGalleriesDisplay() {
                                 minute: "2-digit",
                               })}
                             </p>
+                            <p className="text-xs text-muted-foreground">
+                               Uploaded by: <span className="font-medium">
+                                {gallery.userName ?? "Unknown"}</span>
+                            </p>
+                            <div className="p-2 border border-dashed hover:border-primary/50 bg-card 
+                                text-xs md:text-sm flex items-center justify-between 
+                                transition-all duration-200 delay-75">
+                                <pre className="font-mono bg-linear-to-r from-muted-foreground to-foreground 
+                                 bg-clip-text text-transparent">
+                                     {gallery.urlmaps}
+                                </pre>
+                                     <UrlMaps />
+                                </div> 
                           </div>
                         </div>
                       </DialogContent>
                     </Dialog>
-
-                 
-
                    
                   </div>
                 </div>
+
 
                 {/* Informations de l'image */}
                 <div className="p-4">
                   <h3 className="font-semibold truncate mb-1 text-sm">{gallery.title}</h3>
                   <p className="text-xs text-muted-foreground">{gallery.createdAt?.toLocaleDateString("en-US")}</p>
                 </div>
+
+                     {/* Statut de disponibilité dans la modal */}
+                          <div className="flex items-center m-2 gap-2"> 
+                              <span className="text-sm font-medium">Statut:</span>
+                              <Badge
+                                variant={gallery.dispo ? "default" : "secondary"}
+                                className={`text-xs ${
+                                  gallery.dispo
+                                    ? "bg-green-500 hover:bg-green-600 text-white"
+                                    : "bg-red-500 hover:bg-red-600 text-white"
+                                  }`}
+                                   >
+                                {gallery.dispo ? "Disponible" : "Non disponible"}
+                              </Badge>
+                             </div>
               </div>
             ))}
           </div>

@@ -66,7 +66,7 @@ export default function Home() {
               <h1 className="head-text-md">Alphazero</h1>
               <p className="text-muted-foreground max-w-3xl">{siteConfig.description}</p>
             </div>
-            <div id="code" className="flex flex-col p-4">
+              <div id="code" className="flex flex-col p-4">
               <div className="p-2 border border-dashed hover:border-primary/50 bg-card text-xs md:text-sm flex items-center justify-between transition-all duration-200 delay-75">
                 <pre className="font-mono bg-linear-to-r from-muted-foreground to-foreground bg-clip-text text-transparent">
                   git clone {siteConfig.socials.github}
@@ -74,8 +74,8 @@ export default function Home() {
                 <Button variant="ghost" size="icon" className="size-5 cursor-pointer group/copy" onClick={handleCopy}>
                   {copied ? <Check className="size-3" /> : <Copy className="size-3 group-hover/copy:text-foreground" />}
                 </Button>
-              </div>
-            </div>
+              </div> 
+            </div> 
             <div id="cta" className="flex items-center gap-4 p-4">
               <Button variant="outline" asChild className="relative border-dashed">
                 <a href={siteConfig.socials.github} target="_blank" className="gap-2 group">
