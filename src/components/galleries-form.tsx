@@ -11,7 +11,8 @@ const formSchema = z.object({
   urlmaps:z.string().min(5).max(500),
    imageUrl: z.string().url({ message: "URL invalide" }),
    videoUrl: z.string().url({ message: "URL vidéo invalide" }),
-   dispo:z.boolean()
+   dispo:z.boolean(),
+   price: z.number().positive({ message: "Le prix doit être positif" }),
 
 });
 
@@ -50,7 +51,8 @@ export default function GallerieForm({ gallerie }: GallerieFormProps) {
       urlmaps: gallerie?.urlmaps || "",
       imageUrl: gallerie?.imageUrl || "",
       videoUrl: gallerie?.videoUrl || "", // ajouté ici
-      dispo:gallerie?.dispo || false
+      dispo:gallerie?.dispo || false,
+      price: gallerie?.price ?? 0, // ajouté ici
     },
   });
 
@@ -100,6 +102,28 @@ export default function GallerieForm({ gallerie }: GallerieFormProps) {
             </FormItem>
           )}
         />
+
+<FormField
+  control={form.control}
+  name="price"
+  render={({ field }) => (
+    <FormItem>
+      <FormLabel>Prix</FormLabel>
+      <FormControl>
+        <Input 
+          type="number" 
+          placeholder="19.99" 
+          step="0.01" 
+          {...field} 
+          // pour s'assurer que la valeur est un nombre
+          onChange={(e) => field.onChange(e.target.value === "" ? "" : parseFloat(e.target.value))}
+        />
+      </FormControl>
+      <FormMessage />
+    </FormItem>
+  )}
+/>
+
 
 <FormField
           control={form.control}

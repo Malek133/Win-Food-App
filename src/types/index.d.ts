@@ -51,6 +51,7 @@ type Product = {
   quantity?: number
   createdAt?: string
   updadtedAt?: string
+  dispo:boolean
 }
 
 export enum CategoriesEnum {
@@ -60,3 +61,6 @@ export enum CategoriesEnum {
   bags = 'bags',
   alphazero='alphazero'
 }
+
+
+

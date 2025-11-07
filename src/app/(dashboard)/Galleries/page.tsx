@@ -11,16 +11,22 @@ import {
 } from "@/components/ui/dialog";
 
 import GallerieForm from "@/components/galleries-form";
-import GalleriesDisplay from "@/components/galleries-display";
+ import GalleriesDisplay from "@/components/galleries-display";
+import { getImages } from "@/lib/actions/galleries-action";
 
 export const revalidate = 3600
-const Page = async () => {
+const Page = async () =>
+ {
+  const product = await getImages()
 
+ 
   return (
     <div className="mx-auto max-w-4xl p-6 text-lg">
       <h1 className="mb-4 text-center text-3xl font-bold">
         Galleries Of Pictures</h1>
+       
      <div className="flex justify-end">
+     
         <Dialog>
           <DialogTrigger asChild>
             <Button>
@@ -39,8 +45,9 @@ const Page = async () => {
           </DialogContent>
         </Dialog>
       </div>
+      {/* <GalleriesDisplayServer /> */}
 
-      <GalleriesDisplay />
+       <GalleriesDisplay />
 
     </div>
   )

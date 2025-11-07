@@ -1,10 +1,15 @@
 import { 
+    pgTable,
     boolean,
-    pgTable, 
     text, 
     timestamp,
-    uuid
+    uuid,
+    numeric,
+    pgEnum
 } from "drizzle-orm/pg-core";
+
+
+export const roleEnum = pgEnum('role', ['user', 'admin']);
 
 export const user = pgTable("user", {
   id: text("id").primaryKey(),
@@ -12,6 +17,7 @@ export const user = pgTable("user", {
   email: text("email").notNull().unique(),
   emailVerified: boolean("email_verified").notNull(),
   image: text("image"),
+  role: roleEnum("role").default('user').notNull(),
   createdAt: timestamp("created_at").notNull(),
   updatedAt: timestamp("updated_at").notNull(),
 });
@@ -61,7 +67,7 @@ export const verification = pgTable("verification", {
 
 export const galleries = pgTable("gallery", {
   id: uuid("id").defaultRandom().primaryKey().notNull(),
-
+  price: numeric("price").notNull(), // champ pour le prix
   title: text("title").notNull(),
   urlmaps: text("urlmaps").notNull(),
   dispo:boolean("dispo").notNull(),
@@ -72,12 +78,5 @@ export const galleries = pgTable("gallery", {
 
   userId: text("user_id").notNull(), // référence à l'utilisateur
 });
-
-
-
-
-
-
-
 
 export type Galleries = typeof galleries.$inferInsert

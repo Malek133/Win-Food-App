@@ -4,6 +4,7 @@ import { auth } from "@/lib/auth";
 
 const protectedRoutes = ["/dashboard"];
 const authRoutes = ["/sign-in", "/sign-up"];
+const adminRoutes = ["/admin"];
 
 export async function middleware(request: NextRequest) {
     const session = await auth.api.getSession({
@@ -22,6 +23,16 @@ export async function middleware(request: NextRequest) {
         return NextResponse.redirect(new URL("/dashboard", request.url));
     }
  
+    // return NextResponse.next();
+
+    // if (
+    //   session &&
+    //   adminRoutes.some(route => pathname.startsWith(route)) &&
+    //   session.user.role !== "admin" // 👈 vérifie le champ role du user
+    // ) {
+    //   return NextResponse.redirect(new URL("/dashboard", request.url));
+    // }
+  
     return NextResponse.next();
 }
 

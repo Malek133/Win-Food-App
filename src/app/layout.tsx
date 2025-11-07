@@ -79,7 +79,9 @@ export default function RootLayout({
         )}
       >
         <RootProviders>
-          <main>{children}</main>
+          <main>
+          {children}
+          </main>
           <Toaster />
         </RootProviders>
       </body>
