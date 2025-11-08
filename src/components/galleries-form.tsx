@@ -52,7 +52,7 @@ export default function GallerieForm({ gallerie }: GallerieFormProps) {
       imageUrl: gallerie?.imageUrl || "",
       videoUrl: gallerie?.videoUrl || "", // ajouté ici
       dispo:gallerie?.dispo || false,
-      price: gallerie?.price ?? 0, // ajouté ici
+      price: gallerie?.price ? Number(gallerie.price) : undefined, 
     },
   });
 
@@ -62,6 +62,7 @@ export default function GallerieForm({ gallerie }: GallerieFormProps) {
     try {
       const userData = {
         ...values,
+        price: values.price.toString(),
       };
 
       if (gallerie) {
