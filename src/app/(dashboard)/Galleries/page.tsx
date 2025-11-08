@@ -15,6 +15,8 @@ import GallerieForm from "@/components/galleries-form";
 import { getImages } from "@/lib/actions/galleries-action";
 
 export const revalidate = 3600
+export const dynamic = "force-dynamic";
+
 const Page = async () =>
  {
   const product = await getImages()
